@@ -23,6 +23,8 @@ class WeightsDownloader:
                 self.weights_map[weight_str]["url"],
                 self.weights_map[weight_str]["dest"],
             )
+            print(self.weights_map[weight_str]["url"])
+            print(self.weights_map[weight_str]["dest"])
         else:
             raise ValueError(
                 f"{weight_str} unavailable. View the list of available weights: https://github.com/fofr/cog-comfyui/blob/main/supported_weights.md"
