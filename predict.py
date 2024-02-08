@@ -20,6 +20,7 @@ class Predictor(BasePredictor):
         self.comfyUI.start_server(OUTPUT_DIR, INPUT_DIR)
 
     def setup(self):
+        os.system("sed 's/pixels = np_image.reshape(-1, 3)/pixels = np_image.reshape(-1, 4)/' /src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py")
         self.setup_after()
         pass
 
