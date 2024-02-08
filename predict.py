@@ -28,7 +28,7 @@ class Predictor(BasePredictor):
         with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'r', encoding='utf-8') as file: 
             data = file.readlines()
 
-        data[2503] = "  pixels = np_image.reshape(-1,4)\n"
+        data[2503] = data[2503].replace("(-1,3)", "(-1,4)")
         
         with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'w', encoding='utf-8') as file: 
             file.writelines(data) 
