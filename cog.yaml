@@ -49,7 +49,7 @@ build:
     - trimesh[easy]
 
     #rembg
-    - rembg
+    - rembg[gpu]
   run:
     - curl -o /usr/local/bin/pget -L "https://github.com/replicate/pget/releases/download/v0.6.0/pget_linux_x86_64" && chmod +x /usr/local/bin/pget
 predict: "predict.py:Predictor"
