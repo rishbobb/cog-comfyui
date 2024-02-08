@@ -29,8 +29,8 @@ class Predictor(BasePredictor):
             data = file.readlines()
         
         print(data[2503])
-        # data[2503] = data[2503].replace("3", "4")
-        # print(data[2503])
+        data[2503] = data[2503].replace("3", "4")
+        print(data[2503])
         
         with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'w', encoding='utf-8') as file: 
             file.writelines(data)
