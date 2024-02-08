@@ -1,6 +1,7 @@
 import subprocess
 import time
 import os
+import json
 
 from weights_manifest import WeightsManifest
 
@@ -11,6 +12,18 @@ class WeightsDownloader:
     def __init__(self):
         self.weights_manifest = WeightsManifest()
         self.weights_map = self.weights_manifest.weights_map
+        self.append_custom_models_from_file()
+
+    def append_custom_models_from_file(self):
+        with open("extra_weights.json", "r") as f:
+            custom = json.load(f)
+        for key in custom:
+            self.weights_map[key] = custom[key]
+    
+    def append_custom_models_from_string(self, models):
+        custom = json.loads(models)
+        for key in custom:
+            self.weights_map[key] = custom[key]
 
     def download_weights(self, weight_str):
         if weight_str in self.weights_map:

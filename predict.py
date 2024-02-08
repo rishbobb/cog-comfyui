@@ -25,13 +25,12 @@ class Predictor(BasePredictor):
         pass
 
     def patch_was_suite(self):
-        with open('./patch/WAS_Node_Suite.py', 'r', encoding='utf-8') as file: 
+        with open('./patch/WAS_Node_Suite.py', 'r', encoding='utf-8') as file:
             data = file.readlines()
-        
-        with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'w', encoding='utf-8') as file: 
+
+        with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'w', encoding='utf-8') as file:
             file.writelines(data)
         print("WAS NODE SUITE PATCHED!")
-
 
     def cleanup(self):
         for directory in [OUTPUT_DIR, INPUT_DIR, COMFYUI_TEMP_OUTPUT_DIR]:
@@ -48,7 +47,8 @@ class Predictor(BasePredictor):
             with zipfile.ZipFile(input_file, "r") as zip_ref:
                 zip_ref.extractall(INPUT_DIR)
         elif file_extension in [".jpg", ".jpeg", ".png", ".webp"]:
-            shutil.copy(input_file, os.path.join(INPUT_DIR, f"input{file_extension}"))
+            shutil.copy(input_file, os.path.join(
+                INPUT_DIR, f"input{file_extension}"))
         else:
             raise ValueError(f"Unsupported file type: {file_extension}")
 
@@ -68,7 +68,8 @@ class Predictor(BasePredictor):
                 files.append(Path(path))
             elif os.path.isdir(path):
                 print(f"{prefix}{f}/")
-                files.extend(self.log_and_collect_files(path, prefix=f"{prefix}{f}/"))
+                files.extend(self.log_and_collect_files(
+                    path, prefix=f"{prefix}{f}/"))
         return files
 
     def predict(
@@ -76,6 +77,10 @@ class Predictor(BasePredictor):
         workflow_json: str = Input(
             description="Your ComfyUI workflow as JSON. You must use the API version of your workflow. Get it from ComfyUI using ‘Save (API format)’. Instructions here: https://github.com/fofr/cog-comfyui",
             default="",
+        ),
+        custom_models: str = Input(
+            description="Custom models json",
+            default=None
         ),
         input_file: Path = Input(
             description="Input image, tar or zip file. Read guidance on workflows and input files here: https://github.com/fofr/cog-comfyui. Alternatively, you can replace inputs with URLs in your JSON workflow and the model will download them.",
@@ -104,6 +109,10 @@ class Predictor(BasePredictor):
 
         if randomise_seeds:
             self.comfyUI.randomise_seeds(wf)
+
+        if custom_models != None:
+            self.comfyui.weights_downloader.append_custom_models_from_string(
+                custom_models)
 
         self.comfyUI.connect()
         self.comfyUI.run_workflow(wf)

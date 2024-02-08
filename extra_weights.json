@@ -1,0 +1,18 @@
+{
+    "kaywaii_v71.safetensors": {
+        "dest": "ComfyUI/models/checkpoints",
+        "url": "https://cloud.rishabhroy.com/s/Znkwt3px5oBz85N/download"
+    },
+    "pixel-art-xl-v1.1.safetensors": {
+        "dest": "ComfyUI/models/loras",
+        "url": "https://cloud.rishabhroy.com/s/XSMFQX6ACDGrEZ8/download"
+    },
+    "white-background.safetensors": {
+        "dest": "ComfyUI/models/loras",
+        "url": "https://cloud.rishabhroy.com/s/BWEBaa9iNctT92g/download"
+    },
+    "CHAR-Fern.safetensors": {
+        "dest": "ComfyUI/models/loras",
+        "url": "https://cloud.rishabhroy.com/s/AC7ksdYBQePcRJq/download"
+    }
+}
