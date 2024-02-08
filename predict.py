@@ -20,9 +20,19 @@ class Predictor(BasePredictor):
         self.comfyUI.start_server(OUTPUT_DIR, INPUT_DIR)
 
     def setup(self):
-        os.system("sed 's/pixels = np_image.reshape(-1, 3)/pixels = np_image.reshape(-1, 4)/' /src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py")
+        self.patch_was_suite()
         self.setup_after()
         pass
+
+    def patch_was_suite(self):
+        with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'r', encoding='utf-8') as file: 
+            data = file.readlines()
+
+        data[2503] = "  pixels = np_image.reshape(-1,4)\n"
+        
+        with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'w', encoding='utf-8') as file: 
+            file.writelines(data) 
+
 
     def cleanup(self):
         for directory in [OUTPUT_DIR, INPUT_DIR, COMFYUI_TEMP_OUTPUT_DIR]:
