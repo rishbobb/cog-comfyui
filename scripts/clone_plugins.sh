@@ -22,7 +22,11 @@ repos=(
   "https://github.com/cubiq/ComfyUI_essentials c9236fe"
   "https://github.com/shiimizu/ComfyUI-PhotoMaker 75542a4"
   "https://github.com/pythongosssss/ComfyUI-Custom-Scripts 9916c13"
-  "https://github.com/BadCafeCode/masquerade-nodes-comfyui 240209b"
+  "https://github.com/BadCafeCode/masquerade-nodes-comfyui 240209b",
+  "https://github.com/Jcd1230/rembg-comfyui-node 9a91de5",
+  "https://github.com/WASasquatch/was-node-suite-comfyui 33534f2",
+  "https://github.com/rgthree/rgthree-comfy 185675d",
+  "https://github.com/SLAPaper/ComfyUI-Image-Selector a234f1f"
 )
 
 # Destination directory
