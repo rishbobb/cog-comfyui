@@ -15,9 +15,12 @@ with open("examples/photomaker.json", "r") as file:
 
 
 class Predictor(BasePredictor):
-    def setup(self):
+    def setup_after(self):
         self.comfyUI = ComfyUI("127.0.0.1:8188")
         self.comfyUI.start_server(OUTPUT_DIR, INPUT_DIR)
+
+    def setup(self):
+        pass
 
     def cleanup(self):
         for directory in [OUTPUT_DIR, INPUT_DIR, COMFYUI_TEMP_OUTPUT_DIR]:
@@ -76,6 +79,7 @@ class Predictor(BasePredictor):
             default=True,
         ),
     ) -> List[Path]:
+        self.setup_after()
         """Run a single prediction on the model"""
         self.cleanup()
 
