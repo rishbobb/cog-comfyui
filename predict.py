@@ -27,9 +27,10 @@ class Predictor(BasePredictor):
     def patch_was_suite(self):
         with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'r', encoding='utf-8') as file: 
             data = file.readlines()
-
-        data[2503] = data[2503].replace("3", "4")
+        
         print(data[2503])
+        # data[2503] = data[2503].replace("3", "4")
+        # print(data[2503])
         
         with open('/src/ComfyUI/custom_nodes/was-node-suite-comfyui/WAS_Node_Suite.py', 'w', encoding='utf-8') as file: 
             file.writelines(data)
