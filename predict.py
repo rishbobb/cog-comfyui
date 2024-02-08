@@ -20,6 +20,7 @@ class Predictor(BasePredictor):
         self.comfyUI.start_server(OUTPUT_DIR, INPUT_DIR)
 
     def setup(self):
+        self.setup_after()
         pass
 
     def cleanup(self):
@@ -79,7 +80,7 @@ class Predictor(BasePredictor):
             default=True,
         ),
     ) -> List[Path]:
-        self.setup_after()
+        # self.setup_after()
         """Run a single prediction on the model"""
         self.cleanup()
 
