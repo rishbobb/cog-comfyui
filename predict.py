@@ -15,17 +15,13 @@ with open("examples/photomaker.json", "r") as file:
 
 
 class Predictor(BasePredictor):
-    def setup_after(self, custom_models=""):
-        if custom_models != "":
-            self.comfyUI.weights_downloader.append_custom_models_from_string(
-                custom_models)
-
-        self.patch_was_suite()
+    def setup_after(self):
         self.comfyUI = ComfyUI("127.0.0.1:8188")
         self.comfyUI.start_server(OUTPUT_DIR, INPUT_DIR)
 
     def setup(self):
-        # self.setup_after()
+        self.patch_was_suite()
+        self.setup_after()
         pass
 
     def patch_was_suite(self):
@@ -99,9 +95,13 @@ class Predictor(BasePredictor):
             default=True,
         ),
     ) -> List[Path]:
-        self.setup_after(custom_models=custom_models)
+        # self.setup_after()
         """Run a single prediction on the model"""
         self.cleanup()
+
+        if custom_models != "":
+            self.comfyUI.weights_downloader.append_custom_models_from_string(
+                custom_models)
 
         if input_file:
             self.handle_input_file(input_file)

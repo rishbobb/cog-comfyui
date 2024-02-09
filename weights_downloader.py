@@ -25,13 +25,7 @@ class WeightsDownloader:
         custom = json.loads(models)
         for key in custom:
             obj = custom[key]
-            notar = True
-            try:
-                if not obj["notar"]:
-                    notar = False
-            except:
-                pass
-            obj["notar"] = notar
+            obj["notar"] = True
             self.weights_map[key] = obj
             print(f"Added extra model: {key}")
         print("Appended dynamic custom models")
