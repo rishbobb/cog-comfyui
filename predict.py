@@ -99,6 +99,10 @@ class Predictor(BasePredictor):
         """Run a single prediction on the model"""
         self.cleanup()
 
+        if custom_models != "":
+            self.comfyui.weights_downloader.append_custom_models_from_string(
+                custom_models)
+
         if input_file:
             self.handle_input_file(input_file)
 
@@ -109,10 +113,6 @@ class Predictor(BasePredictor):
 
         if randomise_seeds:
             self.comfyUI.randomise_seeds(wf)
-
-        if custom_models != "":
-            self.comfyui.weights_downloader.append_custom_models_from_string(
-                custom_models)
 
         self.comfyUI.connect()
         self.comfyUI.run_workflow(wf)
