@@ -73,9 +73,14 @@ class WeightsDownloader:
         except:
             pass
         start = time.time()
-        subprocess.check_call(
-            ["pget", "--log-level", "warn", "-xf" if tar else None, url, dest], close_fds=False
-        )
+        if tar:
+            subprocess.check_call(
+                ["pget", "--log-level", "warn", "-xf", url, dest], close_fds=False
+            )
+        else:
+            subprocess.check_call(
+                ["pget", "--log-level", "warn", url, dest], close_fds=False
+            )
         elapsed_time = time.time() - start
         try:
             file_size_bytes = os.path.getsize(
