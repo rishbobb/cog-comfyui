@@ -19,11 +19,8 @@ from helpers.ComfyUI_Controlnet_Aux import ComfyUI_Controlnet_Aux
 
 
 class ComfyUI:
-    def __init__(self, server_address, custom_models=""):
+    def __init__(self, server_address):
         self.weights_downloader = WeightsDownloader()
-        if custom_models != "":
-            self.weights_downloader.append_custom_models_from_string(
-                custom_models)
         self.server_address = server_address
         ComfyUI_IPAdapter_plus.prepare()
 
@@ -113,20 +110,16 @@ class ComfyUI:
                         seen_inputs.add(input_value)
                         if input_value.startswith(("http://", "https://")):
                             filename = os.path.join(
-                                self.input_directory, os.path.basename(
-                                    input_value)
+                                self.input_directory, os.path.basename(input_value)
                             )
                             if not os.path.exists(filename):
-                                print(
-                                    f"Downloading {input_value} to {filename}")
-                                urllib.request.urlretrieve(
-                                    input_value, filename)
+                                print(f"Downloading {input_value} to {filename}")
+                                urllib.request.urlretrieve(input_value, filename)
                             node["inputs"][input_key] = filename
                             print(f"✅ {filename}")
                         elif self.is_image_or_video_value(input_value):
                             filename = os.path.join(
-                                self.input_directory, os.path.basename(
-                                    input_value)
+                                self.input_directory, os.path.basename(input_value)
                             )
                             if not os.path.exists(filename):
                                 print(f"❌ {filename} not provided")
@@ -138,8 +131,7 @@ class ComfyUI:
     def connect(self):
         self.client_id = str(uuid.uuid4())
         self.ws = websocket.WebSocket()
-        self.ws.connect(
-            f"ws://{self.server_address}/ws?clientId={self.client_id}")
+        self.ws.connect(f"ws://{self.server_address}/ws?clientId={self.client_id}")
 
     def queue_prompt(self, prompt):
         # Prompt is the loaded workflow (prompt is the label comfyUI uses)
