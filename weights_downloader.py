@@ -79,7 +79,7 @@ class WeightsDownloader:
             )
         else:
             subprocess.check_call(
-                ["pget", "--log-level", "warn", url, dest], close_fds=False
+                ["pget", "--log-level", "warn", url, f"{dest}/{weight_str}"], close_fds=False
             )
         elapsed_time = time.time() - start
         try:
