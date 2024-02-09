@@ -17,10 +17,7 @@ with open("examples/photomaker.json", "r") as file:
 class Predictor(BasePredictor):
     def setup_after(self, custom_models=""):
         self.patch_was_suite()
-        self.comfyUI = ComfyUI("127.0.0.1:8188")
-        if custom_models != "":
-            self.comfyUI.weights_downloader.append_custom_models_from_string(
-                custom_models)
+        self.comfyUI = ComfyUI("127.0.0.1:8188", custom_models=custom_models)
         self.comfyUI.start_server(OUTPUT_DIR, INPUT_DIR)
 
     def setup(self):
