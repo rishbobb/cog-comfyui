@@ -78,7 +78,7 @@ class WeightsDownloader:
                 ["pget", "--log-level", "warn", "-xf", url, dest], close_fds=False
             )
         else:
-            subprocess.check_call(["touch", f"{dest}/{weight_str}"])
+            subprocess.check_call(["mkdir", f"{dest}"])
             subprocess.check_call(
                 ["pget", "--log-level", "warn", url, f"{dest}/{weight_str}"], close_fds=False
             )
