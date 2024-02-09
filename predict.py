@@ -80,7 +80,7 @@ class Predictor(BasePredictor):
         ),
         custom_models: str = Input(
             description="Custom models json",
-            default=None
+            default=""
         ),
         input_file: Path = Input(
             description="Input image, tar or zip file. Read guidance on workflows and input files here: https://github.com/fofr/cog-comfyui. Alternatively, you can replace inputs with URLs in your JSON workflow and the model will download them.",
@@ -110,7 +110,7 @@ class Predictor(BasePredictor):
         if randomise_seeds:
             self.comfyUI.randomise_seeds(wf)
 
-        if custom_models != None:
+        if custom_models != "":
             self.comfyui.weights_downloader.append_custom_models_from_string(
                 custom_models)
 

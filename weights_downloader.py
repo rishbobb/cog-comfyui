@@ -19,11 +19,16 @@ class WeightsDownloader:
             custom = json.load(f)
         for key in custom:
             self.weights_map[key] = custom[key]
+        print("Appended static custom models")
     
     def append_custom_models_from_string(self, models):
         custom = json.loads(models)
         for key in custom:
-            self.weights_map[key] = custom[key]
+            obj = custom[key]
+            obj["notar"] = True
+            self.weights_map[key] = obj
+            print(f"Added extra model: {key}")
+        print("Appended dynamic custom models")
 
     def download_weights(self, weight_str):
         if weight_str in self.weights_map:
@@ -61,9 +66,15 @@ class WeightsDownloader:
             os.makedirs(dest, exist_ok=True)
 
         print(f"⏳ Downloading {weight_str} to {dest}")
+        tar = True
+        try:
+            if self.weights_map[weight_str]["notar"]:
+                tar = False
+        except:
+            pass
         start = time.time()
         subprocess.check_call(
-            ["pget", "--log-level", "warn", "-xf", url, dest], close_fds=False
+            ["pget", "--log-level", "warn", "-xf" if tar else None, url, dest], close_fds=False
         )
         elapsed_time = time.time() - start
         try:
