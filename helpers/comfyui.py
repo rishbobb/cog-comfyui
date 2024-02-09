@@ -20,7 +20,10 @@ from helpers.ComfyUI_Controlnet_Aux import ComfyUI_Controlnet_Aux
 
 class ComfyUI:
     def __init__(self, server_address, custom_models=""):
-        self.weights_downloader = WeightsDownloader(custom_models=custom_models)
+        self.weights_downloader = WeightsDownloader()
+        if custom_models != "":
+            self.weights_downloader.append_custom_models_from_string(
+                custom_models)
         self.server_address = server_address
         ComfyUI_IPAdapter_plus.prepare()
 

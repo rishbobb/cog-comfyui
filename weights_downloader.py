@@ -9,25 +9,20 @@ BASE_URL = "https://weights.replicate.delivery/default/comfy-ui"
 
 
 class WeightsDownloader:
-    def __init__(self, custom_models=""):
+    def __init__(self):
         self.weights_manifest = WeightsManifest()
         self.weights_map = self.weights_manifest.weights_map
-        if custom_models != "":
-            self.append_custom_models_from_string(
-                custom_models)
         self.append_custom_models_from_file()
 
     def append_custom_models_from_file(self):
         with open("extra_weights.json", "r") as f:
             custom = json.load(f)
-        print(custom)
         for key in custom:
             self.weights_map[key] = custom[key]
         print("Appended static custom models")
-
+    
     def append_custom_models_from_string(self, models):
         custom = json.loads(models)
-        print(custom)
         for key in custom:
             obj = custom[key]
             notar = True
