@@ -100,7 +100,7 @@ class Predictor(BasePredictor):
         self.cleanup()
 
         if custom_models != "":
-            self.comfyui.weights_downloader.append_custom_models_from_string(
+            self.comfyUI.weights_downloader.append_custom_models_from_string(
                 custom_models)
 
         if input_file:
