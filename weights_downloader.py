@@ -78,7 +78,10 @@ class WeightsDownloader:
                 ["pget", "--log-level", "warn", "-xf", url, dest], close_fds=False
             )
         else:
-            subprocess.check_call(["mkdir", f"{dest}"])
+            try:
+                subprocess.check_call(["mkdir", f"{dest}"])
+            except:
+                pass
             subprocess.check_call(
                 ["pget", "--log-level", "warn", url, f"{dest}/{weight_str}"], close_fds=False
             )
